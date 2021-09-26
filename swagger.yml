@@ -1,0 +1,52 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger ReST Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+paths:
+  /id:
+    get:
+      operationId: engine.generate_id
+      tags:
+        - ID
+      summary: Creates a new id for someone.
+      description: Creates a new id for someone and a folder named with the new id.
+      responses:
+        200:
+          description: Successfully read people list operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+  
+  /upload:
+    post:
+      tags:
+        - Upload
+      operationId: engine.upload
+      summary: Uploads the contents of a zip file.
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: upload_file
+          type: file
+          required: true
+          description: Contents of the ZIP file.
+        - in: formData
+          name: id
+          type: string
+          required: true
+          description: ID of user.
+      responses:
+        201:
+          description: Successfully uploaded the file.
+
